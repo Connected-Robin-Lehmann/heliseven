@@ -86,7 +86,7 @@ const ElectronicFlightBag = () => {
           </div>
 
           {/* App Content */}
-          <div className="bg-[#000000] p-4 w-[380px]">
+          <div className="bg-[#000000] p-4 w-[200px]">
             {/* App Header */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
