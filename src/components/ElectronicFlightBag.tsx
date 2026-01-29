@@ -8,8 +8,6 @@ const ElectronicFlightBag = () => {
   const [eta, setEta] = useState('00:00');
   const [currentPhase, setCurrentPhase] = useState(0);
   const [altitude, setAltitude] = useState(0);
-  const [speed, setSpeed] = useState(0);
-  const [fuel, setFuel] = useState(100);
 
   const phases = [
     { name: 'TAKE-OFF', icon: '▲', range: [0, 0.15] },
@@ -21,8 +19,6 @@ const ElectronicFlightBag = () => {
 
   // Transform scroll to flight data
   const altitudeValue = useTransform(scrollYProgress, [0, 1], [0, 12500]);
-  const speedValue = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 180, 220, 0]);
-  const fuelPercent = useTransform(scrollYProgress, [0, 1], [100, 15]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -49,15 +45,8 @@ const ElectronicFlightBag = () => {
 
   useEffect(() => {
     const unsubAlt = altitudeValue.on('change', v => setAltitude(Math.round(v)));
-    const unsubSpeed = speedValue.on('change', v => setSpeed(Math.round(v)));
-    const unsubFuel = fuelPercent.on('change', v => setFuel(Math.round(v)));
-    
-    return () => {
-      unsubAlt();
-      unsubSpeed();
-      unsubFuel();
-    };
-  }, [altitudeValue, speedValue, fuelPercent]);
+    return () => unsubAlt();
+  }, [altitudeValue]);
 
   return (
     <motion.div 
@@ -115,35 +104,35 @@ const ElectronicFlightBag = () => {
             </div>
 
             {/* Main Grid */}
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-3">
               {/* Left: Flight Phases */}
-              <div className="col-span-2 bg-[#1c1c1e] rounded-xl p-3">
-                <span className="text-[9px] uppercase tracking-wider text-white/40 font-medium">Flight Phase</span>
-                <div className="mt-2 space-y-1">
+              <div className="col-span-2 bg-[#1c1c1e] rounded-xl p-2">
+                <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Phase</span>
+                <div className="mt-1.5 space-y-0.5">
                   {phases.map((phase, index) => (
                     <motion.div 
                       key={phase.name}
-                      className={`flex items-center gap-2 py-1.5 px-2 rounded-lg transition-all duration-300 ${
+                      className={`flex items-center gap-1.5 py-1 px-1.5 rounded-md transition-all duration-300 ${
                         index === currentPhase 
                           ? 'bg-primary/20' 
                           : ''
                       }`}
                     >
-                      <div className={`w-5 h-5 rounded-md flex items-center justify-center text-[10px] transition-colors duration-300 ${
+                      <div className={`w-4 h-4 rounded flex items-center justify-center text-[8px] transition-colors duration-300 ${
                         index === currentPhase 
                           ? 'bg-primary text-primary-foreground' 
                           : 'bg-[#2c2c2e] text-white/30'
                       }`}>
                         {phase.icon}
                       </div>
-                      <span className={`text-[10px] font-medium tracking-wide transition-colors duration-300 ${
+                      <span className={`text-[8px] font-medium tracking-wide transition-colors duration-300 ${
                         index === currentPhase ? 'text-white' : 'text-white/30'
                       }`}>
                         {phase.name}
                       </span>
                       {index === currentPhase && (
                         <motion.div 
-                          className="w-1.5 h-1.5 rounded-full bg-primary ml-auto"
+                          className="w-1 h-1 rounded-full bg-primary ml-auto"
                           animate={{ opacity: [1, 0.3, 1] }}
                           transition={{ duration: 1.5, repeat: Infinity }}
                         />
@@ -154,71 +143,55 @@ const ElectronicFlightBag = () => {
               </div>
 
               {/* Right: Route & Data */}
-              <div className="col-span-3 space-y-3">
+              <div className="col-span-3 space-y-2">
                 {/* Route Card */}
-                <div className="bg-[#1c1c1e] rounded-xl p-3">
-                  <span className="text-[9px] uppercase tracking-wider text-white/40 font-medium">Route</span>
-                  <div className="flex items-center justify-between mt-2">
-                    <div className="text-center">
-                      <span className="text-sm font-bold text-white block">MHG</span>
-                      <span className="text-[8px] text-white/40">Mannheim</span>
+                <div className="bg-[#1c1c1e] rounded-xl p-2">
+                  <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Route</span>
+                  <div className="flex items-center mt-2 gap-1">
+                    <div className="text-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-white block">MHG</span>
+                      <span className="text-[6px] text-white/40">Mannheim</span>
                     </div>
-                    <div className="flex-1 mx-2 relative">
-                      <div className="h-[2px] bg-gradient-to-r from-primary via-accent to-primary rounded-full" />
+                    <div className="flex-1 relative min-w-[20px]">
+                      <div className="h-[2px] bg-primary rounded-full" />
                       <motion.div 
-                        className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-                        style={{ left: useTransform(scrollYProgress, [0, 1], ['0%', '100%']) }}
+                        className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+                        style={{ left: useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']) }}
                       />
-                      {/* Waypoint markers */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-accent rounded-full" />
                     </div>
-                    <div className="text-center">
-                      <span className="text-sm font-bold text-accent block">STR</span>
-                      <span className="text-[8px] text-white/40">Stuttgart</span>
+                    <div className="text-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-accent block">STR</span>
+                      <span className="text-[6px] text-white/40">Stuttgart</span>
                     </div>
-                    <div className="flex-1 mx-2 relative">
-                      <div className="h-[2px] bg-gradient-to-r from-accent via-primary to-primary rounded-full" />
+                    <div className="flex-1 relative min-w-[20px]">
+                      <div className="h-[2px] bg-accent rounded-full" />
+                      <motion.div 
+                        className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+                        style={{ 
+                          left: useTransform(scrollYProgress, [0.5, 1], ['0%', '100%']),
+                          opacity: useTransform(scrollYProgress, [0, 0.5, 0.51, 1], [0, 0, 1, 1])
+                        }}
+                      />
                     </div>
-                    <div className="text-center">
-                      <span className="text-sm font-bold text-white block">AGB</span>
-                      <span className="text-[8px] text-white/40">Augsburg</span>
+                    <div className="text-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-white block">AGB</span>
+                      <span className="text-[6px] text-white/40">Augsburg</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Stats Row - ALT, SPD, ETA, Fuel */}
-                <div className="grid grid-cols-4 gap-2">
+                {/* Stats Row - ALT & ETA */}
+                <div className="grid grid-cols-2 gap-2">
                   <div className="bg-[#1c1c1e] rounded-xl p-2">
                     <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">ALT</span>
-                    <div className="flex items-baseline gap-0.5 mt-1">
+                    <div className="flex items-baseline gap-0.5 mt-0.5">
                       <span className="text-sm font-bold text-primary">{altitude.toLocaleString()}</span>
                       <span className="text-[7px] text-white/40">FT</span>
                     </div>
                   </div>
                   <div className="bg-[#1c1c1e] rounded-xl p-2">
-                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">SPD</span>
-                    <div className="flex items-baseline gap-0.5 mt-1">
-                      <span className="text-sm font-bold text-accent">{speed}</span>
-                      <span className="text-[7px] text-white/40">KTS</span>
-                    </div>
-                  </div>
-                  <div className="bg-[#1c1c1e] rounded-xl p-2">
                     <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">ETA</span>
-                    <span className="text-sm font-bold text-white block mt-1">{eta}</span>
-                  </div>
-                  <div className="bg-[#1c1c1e] rounded-xl p-2">
-                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Fuel</span>
-                    <div className="mt-1">
-                      <span className={`text-sm font-bold ${fuel < 30 ? 'text-destructive' : 'text-white'}`}>
-                        {fuel}%
-                      </span>
-                      <div className="h-1 bg-[#2c2c2e] rounded-full overflow-hidden mt-0.5">
-                        <motion.div 
-                          className={`h-full rounded-full transition-colors ${fuel < 30 ? 'bg-destructive' : 'bg-primary'}`}
-                          style={{ width: `${fuel}%` }}
-                        />
-                      </div>
-                    </div>
+                    <span className="text-sm font-bold text-accent block mt-0.5">{eta}</span>
                   </div>
                 </div>
               </div>
