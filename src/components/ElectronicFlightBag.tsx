@@ -7,6 +7,9 @@ const ElectronicFlightBag = () => {
   const [time, setTime] = useState('');
   const [eta, setEta] = useState('00:00');
   const [currentPhase, setCurrentPhase] = useState(0);
+  const [altitude, setAltitude] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [fuel, setFuel] = useState(100);
 
   const phases = [
     { name: 'TAKE-OFF', icon: '▲', range: [0, 0.15] },
@@ -15,6 +18,11 @@ const ElectronicFlightBag = () => {
     { name: 'APPROACH', icon: '↘', range: [0.6, 0.8] },
     { name: 'LANDING', icon: '▼', range: [0.8, 1] },
   ];
+
+  // Transform scroll to flight data
+  const altitudeValue = useTransform(scrollYProgress, [0, 1], [0, 12500]);
+  const speedValue = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 180, 220, 0]);
+  const fuelPercent = useTransform(scrollYProgress, [0, 1], [100, 15]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -39,13 +47,17 @@ const ElectronicFlightBag = () => {
     return unsubscribe;
   }, [scrollYProgress]);
 
-  const fuelPercent = useTransform(scrollYProgress, [0, 1], [100, 15]);
-  const [fuel, setFuel] = useState(100);
-
   useEffect(() => {
-    const unsubscribe = fuelPercent.on('change', v => setFuel(Math.round(v)));
-    return unsubscribe;
-  }, [fuelPercent]);
+    const unsubAlt = altitudeValue.on('change', v => setAltitude(Math.round(v)));
+    const unsubSpeed = speedValue.on('change', v => setSpeed(Math.round(v)));
+    const unsubFuel = fuelPercent.on('change', v => setFuel(Math.round(v)));
+    
+    return () => {
+      unsubAlt();
+      unsubSpeed();
+      unsubFuel();
+    };
+  }, [altitudeValue, speedValue, fuelPercent]);
 
   return (
     <motion.div 
@@ -174,21 +186,33 @@ const ElectronicFlightBag = () => {
                   </div>
                 </div>
 
-                {/* Stats Row */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="bg-[#1c1c1e] rounded-xl p-3">
-                    <span className="text-[9px] uppercase tracking-wider text-white/40 font-medium">ETA</span>
-                    <span className="text-lg font-bold text-accent block mt-1">{eta}</span>
+                {/* Stats Row - ALT, SPD, ETA, Fuel */}
+                <div className="grid grid-cols-4 gap-2">
+                  <div className="bg-[#1c1c1e] rounded-xl p-2">
+                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">ALT</span>
+                    <div className="flex items-baseline gap-0.5 mt-1">
+                      <span className="text-sm font-bold text-primary">{altitude.toLocaleString()}</span>
+                      <span className="text-[7px] text-white/40">FT</span>
+                    </div>
                   </div>
-                  <div className="bg-[#1c1c1e] rounded-xl p-3">
-                    <span className="text-[9px] uppercase tracking-wider text-white/40 font-medium">Fuel</span>
-                    <div className="mt-1.5">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className={`text-sm font-bold ${fuel < 30 ? 'text-destructive' : 'text-white'}`}>
-                          {fuel}%
-                        </span>
-                      </div>
-                      <div className="h-1.5 bg-[#2c2c2e] rounded-full overflow-hidden">
+                  <div className="bg-[#1c1c1e] rounded-xl p-2">
+                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">SPD</span>
+                    <div className="flex items-baseline gap-0.5 mt-1">
+                      <span className="text-sm font-bold text-accent">{speed}</span>
+                      <span className="text-[7px] text-white/40">KTS</span>
+                    </div>
+                  </div>
+                  <div className="bg-[#1c1c1e] rounded-xl p-2">
+                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">ETA</span>
+                    <span className="text-sm font-bold text-white block mt-1">{eta}</span>
+                  </div>
+                  <div className="bg-[#1c1c1e] rounded-xl p-2">
+                    <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Fuel</span>
+                    <div className="mt-1">
+                      <span className={`text-sm font-bold ${fuel < 30 ? 'text-destructive' : 'text-white'}`}>
+                        {fuel}%
+                      </span>
+                      <div className="h-1 bg-[#2c2c2e] rounded-full overflow-hidden mt-0.5">
                         <motion.div 
                           className={`h-full rounded-full transition-colors ${fuel < 30 ? 'bg-destructive' : 'bg-primary'}`}
                           style={{ width: `${fuel}%` }}
