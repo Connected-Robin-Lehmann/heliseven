@@ -93,17 +93,17 @@ const ElectronicFlightBag = () => {
                 <Plane className="w-3 h-3 text-primary" />
               </div>
               <div>
-                <span className="text-[9px] font-semibold text-white block leading-tight">HeliSeven EFB</span>
-                <span className="text-[7px] text-white/50">Flight HS-001</span>
+                <span className="text-[10px] font-semibold text-white block leading-tight">HeliSeven EFB</span>
+                <span className="text-[8px] text-white/50">Flight HS-001</span>
               </div>
               <div className="ml-auto px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/30">
-                <span className="text-[7px] text-green-400 font-medium">ACTIVE</span>
+                <span className="text-[8px] text-green-400 font-medium">ACTIVE</span>
               </div>
             </div>
 
             {/* Flight Phases */}
             <div className="bg-[#1c1c1e] rounded-lg p-2 mb-2">
-              <span className="text-[7px] uppercase tracking-wider text-white/40 font-medium">Phase</span>
+              <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Phase</span>
               <div className="mt-1 space-y-0.5">
                 {phases.map((phase, index) => (
                   <motion.div 
@@ -112,14 +112,14 @@ const ElectronicFlightBag = () => {
                       index === currentPhase ? 'bg-primary/20' : ''
                     }`}
                   >
-                    <div className={`w-3 h-3 rounded flex items-center justify-center text-[6px] transition-colors duration-300 ${
+                    <div className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[7px] transition-colors duration-300 ${
                       index === currentPhase 
                         ? 'bg-primary text-primary-foreground' 
                         : 'bg-[#2c2c2e] text-white/30'
                     }`}>
                       {phase.icon}
                     </div>
-                    <span className={`text-[7px] font-medium tracking-wide transition-colors duration-300 ${
+                    <span className={`text-[8px] font-medium tracking-wide transition-colors duration-300 ${
                       index === currentPhase ? 'text-white' : 'text-white/30'
                     }`}>
                       {phase.name}
@@ -138,22 +138,22 @@ const ElectronicFlightBag = () => {
 
             {/* Route */}
             <div className="bg-[#1c1c1e] rounded-lg p-2 mb-2">
-              <span className="text-[7px] uppercase tracking-wider text-white/40 font-medium">Route</span>
+              <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Route</span>
               <div className="mt-2 space-y-1">
                 {/* Leg 1: MHG → STR */}
                 <div className="flex items-center gap-1">
-                  <span className="text-[8px] font-bold text-white w-7">MHG</span>
+                  <span className="text-[9px] font-bold text-white w-8">MHG</span>
                   <div className="flex-1 relative h-[2px] bg-primary/30 rounded-full">
                     <motion.div 
                       className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
                       style={{ left: useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']) }}
                     />
                   </div>
-                  <span className="text-[8px] font-bold text-accent w-7 text-right">STR</span>
+                  <span className="text-[9px] font-bold text-accent w-8 text-right">STR</span>
                 </div>
                 {/* Leg 2: STR → AGB */}
                 <div className="flex items-center gap-1">
-                  <span className="text-[8px] font-bold text-accent w-7">STR</span>
+                  <span className="text-[9px] font-bold text-accent w-8">STR</span>
                   <div className="flex-1 relative h-[2px] bg-accent/30 rounded-full">
                     <motion.div 
                       className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
@@ -163,7 +163,7 @@ const ElectronicFlightBag = () => {
                       }}
                     />
                   </div>
-                  <span className="text-[8px] font-bold text-white w-7 text-right">AGB</span>
+                  <span className="text-[9px] font-bold text-white w-8 text-right">AGB</span>
                 </div>
               </div>
             </div>
@@ -171,15 +171,15 @@ const ElectronicFlightBag = () => {
             {/* Stats: ALT & ETA */}
             <div className="space-y-1.5">
               <div className="bg-[#1c1c1e] rounded-lg p-2">
-                <span className="text-[7px] uppercase tracking-wider text-white/40 font-medium">Altitude</span>
+                <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Altitude</span>
                 <div className="flex items-baseline gap-0.5 mt-0.5">
-                  <span className="text-base font-bold text-primary">{altitude.toLocaleString()}</span>
-                  <span className="text-[7px] text-white/40">FT</span>
+                  <span className="text-lg font-bold text-primary">{altitude.toLocaleString()}</span>
+                  <span className="text-[8px] text-white/40">FT</span>
                 </div>
               </div>
               <div className="bg-[#1c1c1e] rounded-lg p-2">
-                <span className="text-[7px] uppercase tracking-wider text-white/40 font-medium">ETA</span>
-                <span className="text-base font-bold text-accent block mt-0.5">{eta}</span>
+                <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">ETA</span>
+                <span className="text-lg font-bold text-accent block mt-0.5">{eta}</span>
               </div>
             </div>
           </div>
