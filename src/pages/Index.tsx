@@ -6,8 +6,7 @@ import LocationsSection from '@/components/LocationsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import CockpitHUD from '@/components/CockpitHUD';
-
-import FlightDataStrip from '@/components/FlightDataStrip';
+import ElectronicFlightBag from '@/components/ElectronicFlightBag';
 
 const Index = () => {
   return (
@@ -16,8 +15,7 @@ const Index = () => {
       
       {/* Cockpit Instruments - Always visible during scroll */}
       <CockpitHUD />
-      
-      <FlightDataStrip />
+      <ElectronicFlightBag />
       
       {/* Hero - Take-off Phase */}
       <HeroSection />
