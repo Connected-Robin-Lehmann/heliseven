@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Aviation Design System - Night Sky Theme */
-    --background: 220 20% 6%;
+    /* Aviation Design System - Light Sky Theme */
+    --background: 220 15% 18%;
     --foreground: 0 0% 98%;
 
     --card: 220 18% 10%;
