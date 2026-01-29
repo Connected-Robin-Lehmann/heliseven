@@ -5,11 +5,19 @@ import ServicesSection from '@/components/ServicesSection';
 import LocationsSection from '@/components/LocationsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import CockpitHUD from '@/components/CockpitHUD';
+import ArtificialHorizon from '@/components/ArtificialHorizon';
+import FlightDataStrip from '@/components/FlightDataStrip';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      
+      {/* Cockpit Instruments - Always visible during scroll */}
+      <CockpitHUD />
+      <ArtificialHorizon />
+      <FlightDataStrip />
       
       {/* Hero - Take-off Phase */}
       <HeroSection />
