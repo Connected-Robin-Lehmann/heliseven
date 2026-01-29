@@ -5,7 +5,6 @@ import ServicesSection from '@/components/ServicesSection';
 import LocationsSection from '@/components/LocationsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import CockpitHUD from '@/components/CockpitHUD';
 import ElectronicFlightBag from '@/components/ElectronicFlightBag';
 
 const Index = () => {
@@ -13,8 +12,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Cockpit Instruments - Always visible during scroll */}
-      <CockpitHUD />
+      {/* Electronic Flight Bag - All flight instruments */}
       <ElectronicFlightBag />
       
       {/* Hero - Take-off Phase */}
