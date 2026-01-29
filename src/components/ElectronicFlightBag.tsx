@@ -86,7 +86,7 @@ const ElectronicFlightBag = () => {
           </div>
           
           {/* App Content */}
-          <div className="bg-[#000000] p-3 w-[200px]">
+          <div className="bg-[#000000] p-2.5 w-[225px]">
             {/* App Header */}
             <div className="flex items-center gap-2 mb-3 pb-2 border-b border-white/10">
               <div className="w-6 h-6 rounded-md bg-primary/20 flex items-center justify-center">
