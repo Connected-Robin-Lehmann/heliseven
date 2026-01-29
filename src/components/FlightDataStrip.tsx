@@ -49,26 +49,44 @@ const FlightDataStrip = () => {
 
       <div className="w-px h-8 bg-border" />
 
-      {/* Origin/Destination */}
-      <div className="flex items-center gap-3">
+      {/* Route: Mannheim → Stuttgart → Augsburg */}
+      <div className="flex items-center gap-2">
         <div className="flex flex-col items-center">
           <span className="text-[8px] uppercase tracking-wider text-muted-foreground">FROM</span>
-          <span className="text-sm font-mono text-foreground font-bold">MUC</span>
+          <span className="text-xs font-mono text-foreground font-bold">MHG</span>
+          <span className="text-[7px] text-muted-foreground">Mannheim</span>
         </div>
         <motion.div 
-          className="w-8 h-px bg-gradient-to-r from-primary to-accent relative"
+          className="w-12 h-px bg-gradient-to-r from-primary via-accent to-primary relative"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 2.3, duration: 0.5 }}
         >
           <motion.div 
             className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rounded-full"
-            style={{ left: useTransform(scrollYProgress, [0, 1], ['0%', '100%']) }}
+            style={{ left: useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']) }}
+          />
+        </motion.div>
+        <div className="flex flex-col items-center">
+          <span className="text-[8px] uppercase tracking-wider text-accent">VIA</span>
+          <span className="text-xs font-mono text-accent font-bold">STR</span>
+          <span className="text-[7px] text-muted-foreground">Stuttgart</span>
+        </div>
+        <motion.div 
+          className="w-12 h-px bg-gradient-to-r from-accent via-primary to-accent relative"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 2.5, duration: 0.5 }}
+        >
+          <motion.div 
+            className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-accent rounded-full"
+            style={{ left: useTransform(scrollYProgress, [0.5, 1], ['0%', '100%']) }}
           />
         </motion.div>
         <div className="flex flex-col items-center">
           <span className="text-[8px] uppercase tracking-wider text-muted-foreground">TO</span>
-          <span className="text-sm font-mono text-foreground font-bold">ZRH</span>
+          <span className="text-xs font-mono text-foreground font-bold">AGB</span>
+          <span className="text-[7px] text-muted-foreground">Augsburg</span>
         </div>
       </div>
 
