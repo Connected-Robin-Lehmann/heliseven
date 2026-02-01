@@ -18,8 +18,11 @@ const ElectronicFlightBag = () => {
     { name: 'LANDING', icon: '▼', range: [0.8, 1] },
   ];
 
-  // Transform scroll to flight data
+  // Transform scroll to flight data - ALL hooks must be called at top level
   const altitudeValue = useTransform(scrollYProgress, [0, 1], [0, 12500]);
+  const leg1Progress = useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']);
+  const leg2Progress = useTransform(scrollYProgress, [0.5, 1], ['0%', '100%']);
+  const leg2Opacity = useTransform(scrollYProgress, [0, 0.49, 0.5, 1], [0.3, 0.3, 1, 1]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -71,7 +74,7 @@ const ElectronicFlightBag = () => {
       </motion.button>
 
       {/* iPad Pro Frame - Space Gray */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isExpanded ? (
           <motion.div 
             key="expanded"
@@ -168,7 +171,7 @@ const ElectronicFlightBag = () => {
                       <div className="flex-1 relative h-[2px] bg-primary/30 rounded-full">
                         <motion.div 
                           className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
-                          style={{ left: useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']) }}
+                          style={{ left: leg1Progress }}
                         />
                       </div>
                       <span className="text-[9px] font-bold text-accent w-8 text-right">STR</span>
@@ -180,8 +183,8 @@ const ElectronicFlightBag = () => {
                         <motion.div 
                           className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
                           style={{ 
-                            left: useTransform(scrollYProgress, [0.5, 1], ['0%', '100%']),
-                            opacity: useTransform(scrollYProgress, [0, 0.49, 0.5, 1], [0.3, 0.3, 1, 1])
+                            left: leg2Progress,
+                            opacity: leg2Opacity
                           }}
                         />
                       </div>
