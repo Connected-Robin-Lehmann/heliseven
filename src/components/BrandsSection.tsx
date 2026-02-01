@@ -9,37 +9,30 @@ import HeliEventsLogo from '@/assets/logos/HeliEvents_logo.svg';
 
 const brands = [
   {
-    name: 'HeliSeven',
-    tagline: 'Emotion. Freiheit. Horizont.',
-    description: 'Die Muttermarke für unvergessliche Helikopter-Erlebnisse. Vom ersten Sonnenstrahl bis zum goldenen Sonnenuntergang – wir heben ab.',
-    logo: HeliSevenLogo,
-    flightMode: 'EXPERIENCE',
-  },
-  {
     name: 'HeliTours',
     tagline: 'Panorama. Abenteuer. Perspektive.',
-    description: 'Rundflüge über atemberaubende Landschaften. Berge, Städte und Küsten aus einer völlig neuen Perspektive erleben.',
+    description: 'Atemberaubende Hubschrauber-Rundflüge. Von verschiedenen Standorten aus können Passagiere Städte wie Mannheim, Stuttgart oder Heidelberg sowie Naturlandschaften wie die Weinstraße aus der Vogelperspektive erleben.',
     logo: HeliToursLogo,
     flightMode: 'TOURING',
   },
   {
     name: 'HeliSxool',
     tagline: 'Fokus. Präzision. Exzellenz.',
-    description: 'Professionelle Pilotenausbildung auf höchstem Niveau. Vom PPL bis zum ATPL – Ihr Weg zum Cockpit beginnt hier.',
+    description: 'Professionelle Ausbildung zum Piloten. Hier können Flugschüler sowohl die Privatpilotenlizenz (PPL-H) als auch berufliche Lizenzen (CPL-H, ATPL-H) erwerben, ergänzt durch moderne Simulatortrainings.',
     logo: HeliSxoolLogo,
     flightMode: 'TRAINING',
   },
   {
     name: 'HeliWorks',
     tagline: 'Kraft. Zuverlässigkeit. Einsatz.',
-    description: 'Industrielle Helikopter-Dienstleistungen. Lastenflüge, Windrad-Montage, Baulogistik – wenn es darauf ankommt.',
+    description: 'Spezialisierte Arbeits- und Lastenflüge. Technisch anspruchsvolle Einsätze wie Film- und Fotoflüge, Kontrolle von Pipelines und Stromleitungen, Laserscan-Befliegungen sowie Transport von Außenlasten.',
     logo: HeliWorksLogo,
     flightMode: 'MISSION',
   },
   {
     name: 'HeliEvents',
     tagline: 'Prestige. Exklusivität. Glanz.',
-    description: 'VIP-Transfers und unvergessliche Events. Nachtflüge über funkelnde Städte, Premium-Service für besondere Anlässe.',
+    description: 'Exklusive Flugerlebnisse für besondere Anlässe. Von emotionalen Highlights wie Hochzeitsflügen und Heiratsanträgen bis hin zu Corporate Events und VIP-Shuttle-Services.',
     logo: HeliEventsLogo,
     flightMode: 'VIP',
   },
@@ -68,7 +61,7 @@ const BrandsSection = () => {
             Unsere <span className="text-gradient-primary">Marken</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Fünf spezialisierte Marken unter einem Dach. Jede mit ihrer eigenen Mission, 
+            Vier spezialisierte Marken unter einem Dach. Jede mit ihrer eigenen Mission, 
             vereint durch Leidenschaft für die Luftfahrt.
           </p>
         </motion.div>
@@ -86,17 +79,10 @@ const BrandsSection = () => {
           <div className="absolute top-1/2 right-0 w-2 h-2 bg-primary rounded-full -translate-y-1/2" />
         </motion.div>
 
-        {/* Brand Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {brands.slice(0, 3).map((brand, index) => (
+        {/* Brand Cards Grid - 2x2 Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {brands.map((brand, index) => (
             <BrandCard key={brand.name} {...brand} index={index} />
-          ))}
-        </div>
-        
-        {/* Second Row - Centered */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-4xl mx-auto">
-          {brands.slice(3).map((brand, index) => (
-            <BrandCard key={brand.name} {...brand} index={index + 3} />
           ))}
         </div>
       </div>
