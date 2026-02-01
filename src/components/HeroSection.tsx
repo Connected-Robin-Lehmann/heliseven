@@ -19,10 +19,10 @@ const HeroSection = () => {
           alt="Helicopter cockpit view above clouds at sunrise"
           className="w-full h-full object-cover"
         />
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        {/* Light gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-background" />
         {/* Orange sunset glow */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-primary/20" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-primary/10" />
       </motion.div>
 
       {/* Animated Cloud Layers */}

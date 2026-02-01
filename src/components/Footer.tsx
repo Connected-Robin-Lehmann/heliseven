@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="relative py-16 px-6 border-t border-border">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-t from-muted/30 to-background" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
