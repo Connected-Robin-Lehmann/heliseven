@@ -21,7 +21,7 @@ const ContactSection = () => {
   return (
     <section className="relative py-24 md:py-32 px-6 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-card/50 via-background to-background" />
+      <div className="absolute inset-0 bg-gradient-to-t from-muted/30 via-background to-background" />
       
       {/* Grid pattern */}
       <div className="absolute inset-0 hud-grid opacity-10" />
