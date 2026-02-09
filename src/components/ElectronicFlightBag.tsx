@@ -60,18 +60,20 @@ const ElectronicFlightBag = () => {
       transition={{ delay: 1.5, duration: 0.6 }}
     >
       {/* Toggle Button */}
-      <motion.button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 w-8 h-8 rounded-full bg-[#2d2d2d] border border-[#404040] flex items-center justify-center shadow-lg hover:bg-[#3d3d3d] transition-colors cursor-pointer"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
+      <div className="absolute -top-3 left-1/2 z-10" style={{ transform: 'translateX(-50%)' }}>
+        <motion.button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-8 h-8 rounded-full bg-[#2d2d2d] border border-[#404040] flex items-center justify-center shadow-lg hover:bg-[#3d3d3d] transition-colors cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
         {isExpanded ? (
           <ChevronDown className="w-4 h-4 text-white/80" />
         ) : (
           <ChevronUp className="w-4 h-4 text-white/80" />
         )}
-      </motion.button>
+        </motion.button>
+      </div>
 
       {/* iPad Pro Frame - Space Gray */}
       <AnimatePresence mode="wait">

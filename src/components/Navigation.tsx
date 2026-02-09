@@ -47,18 +47,18 @@ const Navigation = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase relative group"
+                className="text-[11px] xl:text-xs font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wider uppercase relative group whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-            <Button variant="cockpit" size="sm">
+            <Button variant="cockpit" size="sm" className="text-xs whitespace-nowrap">
               Jetzt Buchen
             </Button>
           </div>
@@ -66,7 +66,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative z-10 p-2"
+            className="lg:hidden relative z-10 p-2"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -86,7 +86,7 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background md:hidden"
+            className="fixed inset-0 z-40 bg-background lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, index) => (
