@@ -11,18 +11,18 @@ const ElectronicFlightBag = () => {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const phases = [
-    { name: 'TAKE-OFF', icon: '▲', range: [0, 0.15] },
-    { name: 'CLIMB', icon: '↗', range: [0.15, 0.35] },
-    { name: 'CRUISE', icon: '→', range: [0.35, 0.6] },
-    { name: 'APPROACH', icon: '↘', range: [0.6, 0.8] },
-    { name: 'LANDING', icon: '▼', range: [0.8, 1] },
+    { name: 'TAKE-OFF', icon: '▲', range: [0, 0.12] },
+    { name: 'CLIMB', icon: '↗', range: [0.12, 0.3] },
+    { name: 'CRUISE', icon: '→', range: [0.3, 0.5] },
+    { name: 'APPROACH', icon: '↘', range: [0.5, 0.7] },
+    { name: 'LANDING', icon: '▼', range: [0.7, 0.85] },
   ];
 
   // Transform scroll to flight data - ALL hooks must be called at top level
-  const altitudeValue = useTransform(scrollYProgress, [0, 1], [0, 12500]);
-  const leg1Progress = useTransform(scrollYProgress, [0, 0.5], ['0%', '100%']);
-  const leg2Progress = useTransform(scrollYProgress, [0.5, 1], ['0%', '100%']);
-  const leg2Opacity = useTransform(scrollYProgress, [0, 0.49, 0.5, 1], [0.3, 0.3, 1, 1]);
+  const altitudeValue = useTransform(scrollYProgress, [0, 0.85], [0, 12500]);
+  const leg1Progress = useTransform(scrollYProgress, [0, 0.42], ['0%', '100%']);
+  const leg2Progress = useTransform(scrollYProgress, [0.42, 0.85], ['0%', '100%']);
+  const leg2Opacity = useTransform(scrollYProgress, [0, 0.41, 0.42, 0.85], [0.3, 0.3, 1, 1]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -36,7 +36,8 @@ const ElectronicFlightBag = () => {
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (v) => {
-      const remaining = Math.round((1 - v) * 8);
+      const clamped = Math.min(v, 0.85);
+      const remaining = Math.round((0.85 - clamped) / 0.85 * 8);
       const mins = Math.floor(remaining);
       const secs = Math.round((remaining - mins) * 60);
       setEta(`${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`);
