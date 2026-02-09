@@ -4,22 +4,22 @@ import { Button } from '@/components/ui/button';
 
 const locations = [
   {
-    city: 'München',
-    airport: 'EDDM',
-    address: 'Flughafen München, Terminal 1',
-    services: ['Rundflüge', 'VIP Transfer', 'Events'],
+    city: 'Mannheim',
+    airport: 'EDFM',
+    address: 'City Airport Mannheim',
+    services: ['Rundflüge', 'Schnupperflüge', 'Events'],
   },
   {
-    city: 'Salzburg',
-    airport: 'LOWS',
-    address: 'Salzburg Airport, General Aviation',
-    services: ['Ausbildung', 'Alpenrundflüge', 'Charter'],
+    city: 'Stuttgart',
+    airport: 'EDDS',
+    address: 'Flughafen Stuttgart',
+    services: ['Ausbildung', 'Rundflüge', 'Charter'],
   },
   {
-    city: 'Zürich',
-    airport: 'LSZH',
-    address: 'Zürich Airport, Aviation Center',
-    services: ['Business Aviation', 'VIP', 'Events'],
+    city: 'Augsburg',
+    airport: 'EDMA',
+    address: 'Flughafen Augsburg',
+    services: ['Arbeitsflüge', 'Rundflüge', 'Events'],
   },
 ];
 
