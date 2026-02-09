@@ -19,7 +19,7 @@ const ElectronicFlightBag = () => {
   ];
 
   // Transform scroll to flight data - ALL hooks must be called at top level
-  const altitudeValue = useTransform(scrollYProgress, [0, 0.85], [0, 12500]);
+  const altitudeValue = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 0.85], [0, 12500, 12500, 4000, 0]);
   const leg1Progress = useTransform(scrollYProgress, [0, 0.42], ['0%', '100%']);
   const leg2Progress = useTransform(scrollYProgress, [0.42, 0.85], ['0%', '100%']);
   const leg2Opacity = useTransform(scrollYProgress, [0, 0.41, 0.42, 0.85], [0.3, 0.3, 1, 1]);
