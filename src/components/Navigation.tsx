@@ -5,10 +5,13 @@ import { Button } from '@/components/ui/button';
 import HeliSevenLogo from '@/assets/logos/HeliSevenGroup_logo.svg';
 
 const navLinks = [
-  { label: 'Marken', href: '#brands' },
-  { label: 'Services', href: '#services' },
-  { label: 'Standorte', href: '#locations' },
-  { label: 'Kontakt', href: '#contact' },
+  { label: 'Rundflüge', href: '#services' },
+  { label: 'Schnupperflüge', href: '#services' },
+  { label: 'Flugschule', href: '#services' },
+  { label: 'Events', href: '#services' },
+  { label: 'Arbeitsflüge', href: '#services' },
+  { label: 'Über uns', href: '#brands' },
+  { label: 'Aktuelles', href: '#contact' },
 ];
 
 const Navigation = () => {
