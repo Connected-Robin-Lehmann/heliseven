@@ -40,34 +40,6 @@ const HeroSection = () => {
       {/* HUD Grid Overlay */}
       <div className="absolute inset-0 z-10 hud-grid opacity-30 pointer-events-none" />
 
-      {/* Technical Corner Elements */}
-      <div className="absolute top-8 left-8 z-20">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
-          <img src={HeliSevenLogo} alt="HeliSeven Group" className="h-12 md:h-16" />
-        </motion.div>
-      </div>
-
-      {/* HUD Style Corner Markers */}
-      <div className="absolute top-8 right-8 z-20 flex flex-col items-end gap-1">
-        <motion.div 
-          className="tech-label text-primary"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          FLIGHT MODE / ACTIVE
-        </motion.div>
-        <motion.div 
-          className="w-16 h-px bg-primary/50"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-        />
-      </div>
 
       {/* Main Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-6">
