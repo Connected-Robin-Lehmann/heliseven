@@ -20,9 +20,6 @@ const ElectronicFlightBag = () => {
 
   // Transform scroll to flight data - ALL hooks must be called at top level
   const altitudeValue = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 0.85], [0, 12500, 12500, 4000, 0]);
-  const leg1Progress = useTransform(scrollYProgress, [0, 0.42], ['0%', '100%']);
-  const leg2Progress = useTransform(scrollYProgress, [0.42, 0.85], ['0%', '100%']);
-  const leg2Opacity = useTransform(scrollYProgress, [0, 0.41, 0.42, 0.85], [0.3, 0.3, 1, 1]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -132,67 +129,35 @@ const ElectronicFlightBag = () => {
                 {/* Flight Phases */}
                 <div className="bg-[#1c1c1e] rounded-lg p-2 mb-2">
                   <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Phase</span>
-                  <div className="mt-1 space-y-0.5">
+                  <div className="mt-1.5 space-y-1">
                     {phases.map((phase, index) => (
                       <motion.div 
                         key={phase.name}
-                        className={`flex items-center gap-1.5 py-0.5 px-1 rounded transition-all duration-300 ${
+                        className={`flex items-center gap-2 py-1 px-1.5 rounded transition-all duration-300 ${
                           index === currentPhase ? 'bg-primary/20' : ''
                         }`}
                       >
-                        <div className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[7px] transition-colors duration-300 ${
+                        <div className={`w-5 h-5 rounded flex items-center justify-center text-[9px] transition-colors duration-300 ${
                           index === currentPhase 
                             ? 'bg-primary text-primary-foreground' 
                             : 'bg-[#2c2c2e] text-white/30'
                         }`}>
                           {phase.icon}
                         </div>
-                        <span className={`text-[8px] font-medium tracking-wide transition-colors duration-300 ${
+                        <span className={`text-[9px] font-medium tracking-wide transition-colors duration-300 ${
                           index === currentPhase ? 'text-white' : 'text-white/30'
                         }`}>
                           {phase.name}
                         </span>
                         {index === currentPhase && (
                           <motion.div 
-                            className="w-1 h-1 rounded-full bg-primary ml-auto"
+                            className="w-1.5 h-1.5 rounded-full bg-primary ml-auto"
                             animate={{ opacity: [1, 0.3, 1] }}
                             transition={{ duration: 1.5, repeat: Infinity }}
                           />
                         )}
                       </motion.div>
                     ))}
-                  </div>
-                </div>
-
-                {/* Route */}
-                <div className="bg-[#1c1c1e] rounded-lg p-2 mb-2">
-                  <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium">Route</span>
-                  <div className="mt-2 space-y-1">
-                    {/* Leg 1: MHG → STR */}
-                    <div className="flex items-center gap-1">
-                      <span className="text-[9px] font-bold text-white w-8">MHG</span>
-                      <div className="flex-1 relative h-[2px] bg-primary/30 rounded-full">
-                        <motion.div 
-                          className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
-                          style={{ left: leg1Progress }}
-                        />
-                      </div>
-                      <span className="text-[9px] font-bold text-accent w-8 text-right">STR</span>
-                    </div>
-                    {/* Leg 2: STR → AGB */}
-                    <div className="flex items-center gap-1">
-                      <span className="text-[9px] font-bold text-accent w-8">STR</span>
-                      <div className="flex-1 relative h-[2px] bg-accent/30 rounded-full">
-                        <motion.div 
-                          className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_4px_rgba(255,255,255,0.8)]"
-                          style={{ 
-                            left: leg2Progress,
-                            opacity: leg2Opacity
-                          }}
-                        />
-                      </div>
-                      <span className="text-[9px] font-bold text-white w-8 text-right">AGB</span>
-                    </div>
                   </div>
                 </div>
 
