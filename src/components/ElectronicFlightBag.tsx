@@ -102,13 +102,13 @@ const ElectronicFlightBag = () => {
 
           {/* Right: ALT + ETA */}
           <div className="flex items-center gap-4">
-            <div className="text-right">
+            <div className="text-right w-[90px]">
               <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium block">ALT</span>
-              <span className="text-sm font-bold text-primary">{altitude.toLocaleString()} <span className="text-[8px] text-white/40">FT</span></span>
+              <span className="text-sm font-bold text-primary tabular-nums">{altitude.toLocaleString()} <span className="text-[8px] text-white/40">FT</span></span>
             </div>
-            <div className="text-right">
+            <div className="text-right w-[50px]">
               <span className="text-[8px] uppercase tracking-wider text-white/40 font-medium block">ETA</span>
-              <span className="text-sm font-bold text-accent">{eta}</span>
+              <span className="text-sm font-bold text-accent tabular-nums">{eta}</span>
             </div>
             <div className="px-1.5 py-0.5 rounded bg-green-500/20 border border-green-500/30">
               <span className="text-[8px] text-green-400 font-medium">ACTIVE</span>

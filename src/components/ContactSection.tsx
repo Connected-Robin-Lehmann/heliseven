@@ -59,7 +59,7 @@ const ContactSection = () => {
               
               <div className="space-y-4">
                 <a 
-                  href="tel:+49123456789" 
+                  href="tel:+4962179944698" 
                   className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-sm bg-muted flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -67,12 +67,12 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="tech-label mb-1">Telefon</p>
-                    <p className="text-foreground">+49 123 456 789</p>
+                    <p className="text-foreground">0621 - 79 94 46 98</p>
                   </div>
                 </a>
 
                 <a 
-                  href="mailto:fly@heliseven.de" 
+                  href="mailto:info@heliseven.de" 
                   className="flex items-center gap-4 text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-sm bg-muted flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -80,7 +80,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="tech-label mb-1">E-Mail</p>
-                    <p className="text-foreground">fly@heliseven.de</p>
+                    <p className="text-foreground">info@heliseven.de</p>
                   </div>
                 </a>
 
