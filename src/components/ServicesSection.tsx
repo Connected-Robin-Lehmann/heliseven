@@ -1,32 +1,37 @@
 import { motion } from 'framer-motion';
-import { Plane, GraduationCap, Building2, PartyPopper, Camera } from 'lucide-react';
+import { Plane, GraduationCap, Building2, PartyPopper, Briefcase, Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const services = [
   {
+    icon: GraduationCap,
+    title: 'Ausbildung',
+    description: 'Praxisnahe Pilotenausbildung mit professioneller Begleitung auf dem Weg in die Helikopterfliegerei.',
+  },
+  {
     icon: Plane,
     title: 'Rundflüge',
-    description: 'Atemberaubende Panoramaflüge über Berge, Seen und Städte.',
+    description: 'Unvergessliche Helikoptererlebnisse – von Panoramaflügen bis zu exklusiven individuellen Touren.',
   },
   {
-    icon: GraduationCap,
-    title: 'Pilotenausbildung',
-    description: 'Professionelle Schulung vom Privatpiloten bis zur Berufslizenz.',
+    icon: Plane,
+    title: 'Pilot for a Day',
+    description: 'Selbst ins Cockpit steigen und die Faszination Helikopterfliegen hautnah erleben.',
   },
   {
-    icon: Building2,
-    title: 'Industrie & Bau',
-    description: 'Lastenflüge, Montagearbeiten und Spezialoperationen.',
+    icon: Briefcase,
+    title: 'Business',
+    description: 'Effiziente Helikopterlösungen für Unternehmen – von Business-Flügen bis zu individuellen Lufttransporten.',
   },
   {
     icon: PartyPopper,
-    title: 'Events & VIP',
-    description: 'Exklusive Transfers und unvergessliche Event-Erlebnisse.',
+    title: 'Events',
+    description: 'Außergewöhnliche Events mit Helikoptereinsatz, die Emotionen wecken und bleibende Eindrücke hinterlassen.',
   },
   {
-    icon: Camera,
-    title: 'Aerial Services',
-    description: 'Professionelle Luftaufnahmen für Film, Foto und Vermessung.',
+    icon: Wrench,
+    title: 'Works',
+    description: 'Professionelle Helikopter-Dienstleistungen für Arbeitsflüge, Spezialaufträge und technische Einsätze.',
   },
 ];
 
@@ -67,7 +72,7 @@ const ServicesSection = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
