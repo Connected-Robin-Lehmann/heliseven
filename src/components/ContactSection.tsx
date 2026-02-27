@@ -90,29 +90,9 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="tech-label mb-1">Hauptsitz</p>
-                    <p className="text-foreground">München, Deutschland</p>
+                    <p className="text-foreground">Seckenheimer Landstraße 172</p>
+                    <p className="text-foreground text-sm">68163 Mannheim</p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Operating Hours */}
-            <div className="glass-panel rounded-sm p-6">
-              <h3 className="text-lg font-semibold text-foreground mb-4 tracking-wide">
-                Flugzeiten
-              </h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Montag - Freitag</span>
-                  <span className="text-foreground">08:00 - 20:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Samstag</span>
-                  <span className="text-foreground">09:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Sonntag</span>
-                  <span className="text-foreground">Nach Vereinbarung</span>
                 </div>
               </div>
             </div>

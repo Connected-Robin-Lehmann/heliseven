@@ -7,19 +7,16 @@ const locations = [
     city: 'Mannheim',
     airport: 'EDFM',
     address: 'City Airport Mannheim',
-    services: ['Rundflüge', 'Schnupperflüge', 'Events'],
   },
   {
     city: 'Stuttgart',
     airport: 'EDDS',
     address: 'Flughafen Stuttgart',
-    services: ['Ausbildung', 'Rundflüge', 'Charter'],
   },
   {
     city: 'Augsburg',
     airport: 'EDMA',
     address: 'Flughafen Augsburg',
-    services: ['Arbeitsflüge', 'Rundflüge', 'Events'],
   },
 ];
 
@@ -108,26 +105,15 @@ const LocationsSection = () => {
                 {location.address}
               </p>
 
-              {/* Services */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {location.services.map((service) => (
-                  <span 
-                    key={service}
-                    className="text-xs px-3 py-1 rounded-sm bg-muted text-muted-foreground border border-border"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
 
               {/* Divider */}
               <div className="w-full h-px bg-border mb-6" />
 
               {/* Contact */}
               <div className="space-y-2 text-sm">
-                <a href="tel:+49123456789" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                <a href="tel:+4962179944698" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <Phone className="w-4 h-4" />
-                  <span>+49 123 456 789</span>
+                  <span>0621 - 79 94 46 98</span>
                 </a>
                 <a href="mailto:info@heliseven.de" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                   <Mail className="w-4 h-4" />
