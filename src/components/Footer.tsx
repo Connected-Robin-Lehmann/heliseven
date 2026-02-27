@@ -24,13 +24,13 @@ const Footer = () => {
           <div>
             <h4 className="tech-label text-foreground mb-4">Marken</h4>
             <ul className="space-y-2 text-sm">
-              {['HeliSeven', 'HeliTours', 'HeliSxool', 'HeliWorks', 'HeliEvents'].map((brand) => (
-                <li key={brand}>
+              {['HeliSeven', 'HeliTours', 'HeliSxool', 'HeliWorks', 'HeliEvents'].map((brand) =>
+              <li key={brand}>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     {brand}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
@@ -38,13 +38,13 @@ const Footer = () => {
           <div>
             <h4 className="tech-label text-foreground mb-4">Services</h4>
             <ul className="space-y-2 text-sm">
-              {['Rundflüge', 'Pilotenausbildung', 'VIP Transfer', 'Industrie', 'Events'].map((service) => (
-                <li key={service}>
+              {['Rundflüge', 'Pilotenausbildung', 'VIP Transfer', 'Industrie', 'Events'].map((service) =>
+              <li key={service}>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     {service}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
@@ -52,13 +52,13 @@ const Footer = () => {
           <div>
             <h4 className="tech-label text-foreground mb-4">Rechtliches</h4>
             <ul className="space-y-2 text-sm">
-              {['Impressum', 'Datenschutz', 'AGB', 'Cookies'].map((item) => (
-                <li key={item}>
+              {['Impressum', 'Datenschutz', 'AGB', 'Cookies'].map((item) =>
+              <li key={item}>
                   <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                     {item}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
         </div>
@@ -74,14 +74,14 @@ const Footer = () => {
 
           {/* Social Links or Certifications could go here */}
           <div className="flex items-center gap-4">
-            <span className="tech-label text-muted-foreground">EASA Certified</span>
+            <span className="tech-label text-muted-foreground">FBA Approved </span>
             <span className="w-px h-4 bg-border" />
-            <span className="tech-label text-muted-foreground">ISO 9001</span>
+            <span className="tech-label text-muted-foreground">​</span>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 };
 
 export default Footer;
