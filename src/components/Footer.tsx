@@ -74,7 +74,7 @@ const Footer = () => {
 
           {/* Social Links or Certifications could go here */}
           <div className="flex items-center gap-4">
-            <span className="tech-label text-muted-foreground">FBA Approved </span>
+            <span className="tech-label text-muted-foreground">FBA APPROVED</span>
             <span className="w-px h-4 bg-border" />
             <span className="tech-label text-muted-foreground">​</span>
           </div>
