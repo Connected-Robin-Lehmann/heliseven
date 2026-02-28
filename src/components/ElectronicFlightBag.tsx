@@ -88,7 +88,7 @@ const ElectronicFlightBag = () => {
               <span className="text-sm font-bold text-primary tabular-nums">{altitude.toLocaleString()} <span className="text-[8px] text-white/40">FT</span></span>
             </div>
             <div className="text-right">
-              <span className="text-sm font-bold text-accent tabular-nums">{eta}</span>
+              <span className="text-[10px] font-semibold text-accent uppercase tracking-wide">{phases[currentPhase]?.name || 'STANDBY'}</span>
             </div>
           </div>
         </div>
