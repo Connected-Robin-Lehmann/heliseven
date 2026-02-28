@@ -82,6 +82,62 @@ const LocationMap = ({ coords, city }: { coords: [number, number]; city: string 
   return <div ref={mapRef} className="w-full h-full" />;
 };
 
+const OverviewMap = () => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    if (!mapRef.current || mapInstance.current) return;
+
+    const bounds = L.latLngBounds(locations.map(l => l.coords));
+
+    const map = L.map(mapRef.current, {
+      center: bounds.getCenter(),
+      zoom: 8,
+      zoomControl: false,
+      attributionControl: false,
+      dragging: true,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer(tileStyle.url, {
+      subdomains: tileStyle.subdomains,
+      maxZoom: 19,
+    }).addTo(map);
+
+    const markerIcon = L.divIcon({
+      className: 'custom-map-marker',
+      html: `<div style="
+        width: 16px; height: 16px;
+        background: hsl(24, 93%, 48%);
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.9);
+        box-shadow: 0 0 14px hsl(24, 93%, 48%, 0.6), 0 0 28px hsl(24, 93%, 48%, 0.3);
+      "></div>`,
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+    });
+
+    locations.forEach(loc => {
+      const marker = L.marker(loc.coords, { icon: markerIcon }).addTo(map);
+      marker.bindTooltip(
+        `<div style="font-family:Montserrat,sans-serif;font-size:11px;font-weight:600;letter-spacing:0.05em;">${loc.airport} · ${loc.city}</div>`,
+        { direction: 'top', offset: [0, -12], className: 'custom-tooltip' }
+      );
+    });
+
+    map.fitBounds(bounds, { padding: [50, 50] });
+    mapInstance.current = map;
+
+    return () => {
+      map.remove();
+      mapInstance.current = null;
+    };
+  }, []);
+
+  return <div ref={mapRef} className="w-full h-full" />;
+};
+
 const LocationsSection = () => {
   return (
     <section className="relative py-24 md:py-32 px-6 overflow-hidden">
@@ -193,6 +249,24 @@ const LocationsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Overview Map with all locations */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12"
+        >
+          <div className="glass-panel rounded-sm p-4 md:p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span className="tech-label text-primary">ALLE STANDORTE / OVERVIEW</span>
+            </div>
+            <div className="w-full h-[300px] md:h-[450px] rounded-sm overflow-hidden border border-border/30">
+              <OverviewMap />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
