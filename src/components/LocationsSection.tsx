@@ -4,6 +4,25 @@ import { MapPin, Phone, Mail } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Three different tile styles for comparison
+const tileStyles = [
+  {
+    name: 'Style A – Dark Minimal',
+    url: 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
+  },
+  {
+    name: 'Style B – Grayscale',
+    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
+  },
+  {
+    name: 'Style C – Toner Lite',
+    url: 'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png',
+    subdomains: '',
+  },
+];
+
 const locations = [
   {
     city: 'Mannheim',
@@ -11,6 +30,7 @@ const locations = [
     address: 'City Airport Mannheim',
     coords: [49.4727, 8.5143] as [number, number],
     coordsLabel: "N 49° 28,36′ · E 08° 30,86′",
+    tileStyle: tileStyles[0],
   },
   {
     city: 'Stuttgart',
@@ -18,6 +38,7 @@ const locations = [
     address: 'General Aviation Terminal, 70629 Stuttgart',
     coords: [48.6898, 9.3220] as [number, number],
     coordsLabel: "N 48° 41,39′ · E 09° 19,32′",
+    tileStyle: tileStyles[1],
   },
   {
     city: 'Augsburg',
@@ -25,10 +46,11 @@ const locations = [
     address: 'Flughafen Augsburg',
     coords: [48.4254, 10.9317] as [number, number],
     coordsLabel: "N 48° 25,52′ · E 10° 55,90′",
+    tileStyle: tileStyles[2],
   },
 ];
 
-const LocationMap = ({ coords, city }: { coords: [number, number]; city: string }) => {
+const LocationMap = ({ coords, city, tileStyle }: { coords: [number, number]; city: string; tileStyle: typeof tileStyles[0] }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
 
@@ -46,8 +68,8 @@ const LocationMap = ({ coords, city }: { coords: [number, number]; city: string 
       touchZoom: false,
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
+    L.tileLayer(tileStyle.url, {
+      subdomains: tileStyle.subdomains || undefined,
       maxZoom: 19,
     }).addTo(map);
 
@@ -144,8 +166,11 @@ const LocationsSection = () => {
               className="group glass-panel rounded-sm p-6 md:p-8 hover:border-primary/50 transition-all duration-300"
             >
               {/* Real Map */}
-              <div className="w-full h-40 mb-4 rounded-sm overflow-hidden border border-border/30">
-                <LocationMap coords={location.coords} city={location.city} />
+              <div className="w-full h-40 mb-2 rounded-sm overflow-hidden border border-border/30 relative">
+                <LocationMap coords={location.coords} city={location.city} tileStyle={location.tileStyle} />
+                <div className="absolute top-2 left-2 z-[1000] bg-background/80 backdrop-blur-sm px-2 py-1 rounded-sm">
+                  <span className="tech-label text-primary text-[8px]">{location.tileStyle.name}</span>
+                </div>
               </div>
 
               {/* Airport Code */}
