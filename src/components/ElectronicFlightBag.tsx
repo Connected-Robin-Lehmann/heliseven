@@ -51,6 +51,49 @@ const ElectronicFlightBag = () => {
 
   return (
     <>
+      {/* Mobile Bar - shown on small screens (<768px) */}
+      <motion.div
+        className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
+      >
+        <div
+          className="w-full px-3 py-2 flex items-center justify-between border-t border-[#404040]"
+          style={{
+            background: 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%)',
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-md bg-primary/20 flex items-center justify-center">
+              <Plane className="w-3 h-3 text-primary" />
+            </div>
+            <div className="flex items-center gap-1.5">
+              {phases.map((phase, index) => (
+                <div
+                  key={phase.name}
+                  className={`w-5 h-5 rounded flex items-center justify-center text-[8px] transition-colors duration-300 ${
+                    index === currentPhase
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-[#2c2c2e] text-white/20'
+                  }`}
+                >
+                  {phase.icon}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right">
+              <span className="text-sm font-bold text-primary tabular-nums">{altitude.toLocaleString()} <span className="text-[8px] text-white/40">FT</span></span>
+            </div>
+            <div className="text-right">
+              <span className="text-sm font-bold text-accent tabular-nums">{eta}</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Bottom Bar - shown on medium screens (768px-1279px) */}
       <motion.div
         className="fixed bottom-0 left-0 right-0 z-50 hidden md:flex xl:hidden"
