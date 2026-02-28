@@ -68,10 +68,11 @@ const LocationMap = ({ coords, city, tileStyle }: { coords: [number, number]; ci
       touchZoom: false,
     });
 
-    L.tileLayer(tileStyle.url, {
-      subdomains: tileStyle.subdomains || undefined,
-      maxZoom: 19,
-    }).addTo(map);
+    const tileOptions: L.TileLayerOptions = { maxZoom: 19 };
+    if (tileStyle.subdomains) {
+      tileOptions.subdomains = tileStyle.subdomains;
+    }
+    L.tileLayer(tileStyle.url, tileOptions).addTo(map);
 
     const markerIcon = L.divIcon({
       className: 'custom-map-marker',
