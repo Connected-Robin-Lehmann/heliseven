@@ -1,75 +1,80 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const locations = [
   {
     city: 'Mannheim',
     airport: 'EDFM',
     address: 'City Airport Mannheim',
-    // Approximate position on simplified southern Germany map (viewBox 0 0 200 140)
-    mapX: 52,
-    mapY: 38,
+    coords: [49.4727, 8.5143] as [number, number],
+    coordsLabel: "N 49° 28,36′ · E 08° 30,86′",
   },
   {
     city: 'Stuttgart',
     airport: 'EDDS',
-    address: 'Flughafen Stuttgart',
-    mapX: 68,
-    mapY: 62,
+    address: 'General Aviation Terminal, 70629 Stuttgart',
+    coords: [48.6898, 9.3220] as [number, number],
+    coordsLabel: "N 48° 41,39′ · E 09° 19,32′",
   },
   {
     city: 'Augsburg',
     airport: 'EDMA',
     address: 'Flughafen Augsburg',
-    mapX: 130,
-    mapY: 72,
+    coords: [48.4254, 10.9317] as [number, number],
+    coordsLabel: "N 48° 25,52′ · E 10° 55,90′",
   },
 ];
 
-// Simplified outline of southern Germany / Baden-Württemberg + Bayern region
-const GermanyOutline = () => (
-  <path
-    d="M20,10 L45,5 L80,8 L110,3 L145,6 L175,12 L190,25 L185,50 L180,75 L170,95 L155,110 L135,120 L110,130 L85,125 L60,115 L40,100 L25,80 L15,55 L12,35 Z"
-    fill="none"
-    stroke="hsl(var(--primary))"
-    strokeWidth="0.8"
-    opacity="0.3"
-  />
-);
+const LocationMap = ({ coords, city }: { coords: [number, number]; city: string }) => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<L.Map | null>(null);
 
-const MiniMap = ({ activeX, activeY, allLocations }: { activeX: number; activeY: number; allLocations: typeof locations }) => (
-  <svg viewBox="0 0 200 140" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-    {/* Grid lines */}
-    {[0, 35, 70, 105, 140].map(y => (
-      <line key={`h${y}`} x1="0" y1={y} x2="200" y2={y} stroke="hsl(var(--primary))" strokeWidth="0.3" opacity="0.1" />
-    ))}
-    {[0, 50, 100, 150, 200].map(x => (
-      <line key={`v${x}`} x1={x} y1="0" x2={x} y2="140" stroke="hsl(var(--primary))" strokeWidth="0.3" opacity="0.1" />
-    ))}
-    
-    {/* Country outline */}
-    <GermanyOutline />
-    
-    {/* Other location dots (dimmed) */}
-    {allLocations.map((loc) => (
-      <g key={loc.city}>
-        <circle cx={loc.mapX} cy={loc.mapY} r={loc.mapX === activeX && loc.mapY === activeY ? 0 : 2} fill="hsl(var(--muted-foreground))" opacity="0.3" />
-      </g>
-    ))}
-    
-    {/* Active location */}
-    <circle cx={activeX} cy={activeY} r="3" fill="hsl(var(--primary))" />
-    <circle cx={activeX} cy={activeY} r="8" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.5" />
-    <circle cx={activeX} cy={activeY} r="14" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.2" />
-    
-    {/* Crosshair */}
-    <line x1={activeX - 20} y1={activeY} x2={activeX - 10} y2={activeY} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
-    <line x1={activeX + 10} y1={activeY} x2={activeX + 20} y2={activeY} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
-    <line x1={activeX} y1={activeY - 20} x2={activeX} y2={activeY - 10} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
-    <line x1={activeX} y1={activeY + 10} x2={activeX} y2={activeY + 20} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
-  </svg>
-);
+  useEffect(() => {
+    if (!mapRef.current || mapInstance.current) return;
+
+    const map = L.map(mapRef.current, {
+      center: coords,
+      zoom: 11,
+      zoomControl: false,
+      attributionControl: false,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      touchZoom: false,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const markerIcon = L.divIcon({
+      className: 'custom-map-marker',
+      html: `<div style="
+        width: 14px; height: 14px;
+        background: hsl(24, 93%, 48%);
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.8);
+        box-shadow: 0 0 12px hsl(24, 93%, 48%, 0.6), 0 0 24px hsl(24, 93%, 48%, 0.3);
+      "></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+    });
+
+    L.marker(coords, { icon: markerIcon }).addTo(map);
+    mapInstance.current = map;
+
+    return () => {
+      map.remove();
+      mapInstance.current = null;
+    };
+  }, [coords, city]);
+
+  return <div ref={mapRef} className="w-full h-full" />;
+};
 
 const LocationsSection = () => {
   return (
@@ -106,7 +111,6 @@ const LocationsSection = () => {
           viewport={{ once: true }}
         >
           <svg className="w-full h-24" viewBox="0 0 1200 100" preserveAspectRatio="xMidYMid meet">
-            {/* Flight path line */}
             <motion.path
               d="M100,50 Q400,20 600,50 T1100,50"
               stroke="hsl(var(--primary))"
@@ -118,7 +122,6 @@ const LocationsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 2, delay: 0.3 }}
             />
-            {/* Location markers */}
             {[100, 600, 1100].map((x, i) => (
               <g key={i}>
                 <circle cx={x} cy="50" r="8" fill="hsl(var(--primary))" />
@@ -140,16 +143,19 @@ const LocationsSection = () => {
               transition={{ delay: index * 0.15 }}
               className="group glass-panel rounded-sm p-6 md:p-8 hover:border-primary/50 transition-all duration-300"
             >
-              {/* Mini Map */}
-              <div className="w-full h-28 mb-4 rounded-sm overflow-hidden border border-border/30 bg-background/50">
-                <MiniMap activeX={location.mapX} activeY={location.mapY} allLocations={locations} />
+              {/* Real Map */}
+              <div className="w-full h-40 mb-4 rounded-sm overflow-hidden border border-border/30">
+                <LocationMap coords={location.coords} city={location.city} />
               </div>
 
               {/* Airport Code */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-2">
                 <span className="tech-label text-primary text-lg">{location.airport}</span>
                 <MapPin className="w-5 h-5 text-primary" />
               </div>
+
+              {/* Coordinates */}
+              <p className="tech-label text-muted-foreground text-[9px] mb-4">{location.coordsLabel}</p>
 
               {/* City Name */}
               <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-2 tracking-wide">
@@ -160,7 +166,6 @@ const LocationsSection = () => {
               <p className="text-muted-foreground text-sm mb-6">
                 {location.address}
               </p>
-
 
               {/* Divider */}
               <div className="w-full h-px bg-border mb-6" />
