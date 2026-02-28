@@ -7,19 +7,19 @@ import 'leaflet/dist/leaflet.css';
 // Three different tile styles for comparison
 const tileStyles = [
   {
-    name: 'Style A – Dark Minimal',
-    url: 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+    name: 'Style A – Voyager',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     subdomains: 'abcd',
   },
   {
-    name: 'Style B – Grayscale',
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    name: 'Style B – Dark Labels',
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     subdomains: 'abcd',
   },
   {
-    name: 'Style C – Toner Lite',
-    url: 'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png',
-    subdomains: '',
+    name: 'Style C – Positron',
+    url: 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+    subdomains: 'abcd',
   },
 ];
 
