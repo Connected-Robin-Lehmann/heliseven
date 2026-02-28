@@ -7,18 +7,69 @@ const locations = [
     city: 'Mannheim',
     airport: 'EDFM',
     address: 'City Airport Mannheim',
+    // Approximate position on simplified southern Germany map (viewBox 0 0 200 140)
+    mapX: 52,
+    mapY: 38,
   },
   {
     city: 'Stuttgart',
     airport: 'EDDS',
     address: 'Flughafen Stuttgart',
+    mapX: 68,
+    mapY: 62,
   },
   {
     city: 'Augsburg',
     airport: 'EDMA',
     address: 'Flughafen Augsburg',
+    mapX: 130,
+    mapY: 72,
   },
 ];
+
+// Simplified outline of southern Germany / Baden-Württemberg + Bayern region
+const GermanyOutline = () => (
+  <path
+    d="M20,10 L45,5 L80,8 L110,3 L145,6 L175,12 L190,25 L185,50 L180,75 L170,95 L155,110 L135,120 L110,130 L85,125 L60,115 L40,100 L25,80 L15,55 L12,35 Z"
+    fill="none"
+    stroke="hsl(var(--primary))"
+    strokeWidth="0.8"
+    opacity="0.3"
+  />
+);
+
+const MiniMap = ({ activeX, activeY, allLocations }: { activeX: number; activeY: number; allLocations: typeof locations }) => (
+  <svg viewBox="0 0 200 140" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+    {/* Grid lines */}
+    {[0, 35, 70, 105, 140].map(y => (
+      <line key={`h${y}`} x1="0" y1={y} x2="200" y2={y} stroke="hsl(var(--primary))" strokeWidth="0.3" opacity="0.1" />
+    ))}
+    {[0, 50, 100, 150, 200].map(x => (
+      <line key={`v${x}`} x1={x} y1="0" x2={x} y2="140" stroke="hsl(var(--primary))" strokeWidth="0.3" opacity="0.1" />
+    ))}
+    
+    {/* Country outline */}
+    <GermanyOutline />
+    
+    {/* Other location dots (dimmed) */}
+    {allLocations.map((loc) => (
+      <g key={loc.city}>
+        <circle cx={loc.mapX} cy={loc.mapY} r={loc.mapX === activeX && loc.mapY === activeY ? 0 : 2} fill="hsl(var(--muted-foreground))" opacity="0.3" />
+      </g>
+    ))}
+    
+    {/* Active location */}
+    <circle cx={activeX} cy={activeY} r="3" fill="hsl(var(--primary))" />
+    <circle cx={activeX} cy={activeY} r="8" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.5" />
+    <circle cx={activeX} cy={activeY} r="14" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.2" />
+    
+    {/* Crosshair */}
+    <line x1={activeX - 20} y1={activeY} x2={activeX - 10} y2={activeY} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
+    <line x1={activeX + 10} y1={activeY} x2={activeX + 20} y2={activeY} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
+    <line x1={activeX} y1={activeY - 20} x2={activeX} y2={activeY - 10} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
+    <line x1={activeX} y1={activeY + 10} x2={activeX} y2={activeY + 20} stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.4" />
+  </svg>
+);
 
 const LocationsSection = () => {
   return (
@@ -89,8 +140,13 @@ const LocationsSection = () => {
               transition={{ delay: index * 0.15 }}
               className="group glass-panel rounded-sm p-6 md:p-8 hover:border-primary/50 transition-all duration-300"
             >
+              {/* Mini Map */}
+              <div className="w-full h-28 mb-4 rounded-sm overflow-hidden border border-border/30 bg-background/50">
+                <MiniMap activeX={location.mapX} activeY={location.mapY} allLocations={locations} />
+              </div>
+
               {/* Airport Code */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
                 <span className="tech-label text-primary text-lg">{location.airport}</span>
                 <MapPin className="w-5 h-5 text-primary" />
               </div>
